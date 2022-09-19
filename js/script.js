@@ -6,6 +6,12 @@ const libraryMain = document.querySelector('div.shelf');
 addBookToLibrary('The Lord of the Rings', 'J.R.R. Tolkien',
                  900, 0, false);
 
+addBookToLibrary('The Hobbit', 'J.R.R. Tolkien',
+                 400, 0, false);
+
+addBookToLibrary('The Silmarillion', 'J.R.R. Tolkien',
+                 600, 0, false);
+
 renderShelf(myLibrary);
 
 function Book(title, author, pages, pagesRead=0, read=false) {
@@ -29,7 +35,7 @@ function addBookToLibrary(title, author, pages, pagesRead, read) {
 function renderBookCard(book, index) {
     const card = document.createElement('div');
     card.classList.add('card');
-    card.setAttribute('data', 'index: ' + index);
+    card.dataset.index = index;
 
     const bookTitle = document.createElement('h3');
     bookTitle.classList.add('book-title');
