@@ -2,6 +2,10 @@
 
 const myLibrary = [];
 const libraryMain = document.querySelector('div.shelf');
+const modalWindow = document.querySelector('.modal-background');
+const addButton = document.querySelector('.new-book');
+
+addButton.addEventListener('click', displayModal);
 
 addBookToLibrary('The Lord of the Rings', 'J.R.R. Tolkien',
                  900, 0, false);
@@ -55,3 +59,15 @@ function renderShelf(library) {
         renderBookCard(book, idx)
     });
 }
+
+function displayModal() {
+    addButton.style.transform = 'rotate(45deg)';
+    modalWindow.style.display = 'block';
+}
+
+window.onclick = function(event) {
+    if (event.target == modalWindow) {
+        addButton.style.transform = '';
+        modalWindow.style.display = "none";
+    }
+  }
