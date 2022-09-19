@@ -16,6 +16,26 @@
         <div class="shelf">
 
         </div>
+        <div id="book-form">
+            <div class="form-title">
+                Add New Book
+            </div>
+            <form action="" method="post" class="book-form">
+                <label for="bookTitle">Title</label>
+                <input type="text" name="bookTitle" id="bookTitle">
+                <label for="bookAuthor">Author</label>
+                <input type="text" name="bookAuthor" id="bookAuthor">
+                <label for="bookPages">Pages</label>
+                <input type="number" name="bookPages" id="bookPages">
+                <label for="pagesRead"># of pages read</label>
+                <input type="number" name="pagesRead" id="pagesRead">
+                <div>   
+                    <input type="checkbox" name="bookRead" id="bookRead">
+                    <label for="bookRead">Already read?</label>
+                </div>
+                <button type="submit" id="add-button">Add</button>
+            </form>
+        </div>
         <button class="new-book">+</button>
     </main>
 </body>

@@ -35,9 +35,10 @@ main {
 
 .shelf {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 200px));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 20px;
     padding: 30px;
+    overflow: auto;
 }
 
 .card {
@@ -64,8 +65,45 @@ button.new-book {
     font-size: 60px;
     height: 70px;
     width: 70px;
-    position: absolute;
+    position: fixed;
     bottom: 40px;
     right: 40px;
     box-shadow: 3px 3px 5px grey;
+}
+
+#book-form {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    position: fixed;
+    bottom: 120px;
+    right: 120px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: steelblue;
+    color: antiquewhite;
+    box-shadow: 5px 5px 7px grey;
+}
+
+.form-title {
+    box-sizing: border-box;
+    width: 100%;
+    background-color: skyblue;
+    text-align: center;
+    font-size: larger;
+
+}
+
+.book-form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#add-button {
+    border: 0;
+    border-radius: 5px;
+    background-color:azure;
+    padding: 5px;
+    box-shadow: 2px 2px 5px black;
 }
