@@ -5,8 +5,11 @@ const libraryMain = document.querySelector('div.shelf');
 const modalWindow = document.querySelector('.modal-background');
 const modalForm = document.querySelector('.add-form');
 const addButton = document.querySelector('.new-book');
+const submitBook = document.querySelector('#add-button');
+const bookForm = document.querySelector('.book-form');
 
 addButton.addEventListener('click', displayModal);
+submitBook.addEventListener('click', createBookFromForm)
 
 addBookToLibrary('The Lord of the Rings', 'J.R.R. Tolkien',
                  900, 0, false);
@@ -56,6 +59,7 @@ function renderBookCard(book, index) {
 }
 
 function renderShelf(library) {
+    libraryMain.textContent = '';
     library.forEach((book, idx) => {
         renderBookCard(book, idx)
     });
@@ -74,4 +78,20 @@ window.onclick = function(event) {
         addButton.style.transform = '';
         modalWindow.style.display = "none";
     }
-  }
+}
+
+function createBookFromForm(e) {
+    e.preventDefault();
+    const title = document.querySelector("#bookTitle").value;
+    const author = document.querySelector("#bookAuthor").value;
+    const pages = document.querySelector("#bookPages").value;
+    const pagesRead = document.querySelector("#pagesRead").value;
+    const bookRead = document.querySelector("#bookRead").value;
+    addBookToLibrary(title, author, pages, pagesRead, bookRead);
+    renderShelf(myLibrary);
+    modalForm.classList.remove('form-active');
+    addButton.style.transform = '';
+    modalWindow.style.display = "none";
+    bookForm.reset();
+
+}

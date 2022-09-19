@@ -23,18 +23,18 @@
             </div>
             <form action="" class="book-form">
                 <label for="bookTitle">Title</label>
-                <input type="text" name="bookTitle" id="bookTitle">
+                <input type="text" name="bookTitle" id="bookTitle" required>
                 <label for="bookAuthor">Author</label>
-                <input type="text" name="bookAuthor" id="bookAuthor">
+                <input type="text" name="bookAuthor" id="bookAuthor" required>
                 <label for="bookPages">Pages</label>
-                <input type="number" name="bookPages" id="bookPages">
+                <input type="number" name="bookPages" id="bookPages" required>
                 <label for="pagesRead"># of pages read</label>
-                <input type="number" name="pagesRead" id="pagesRead">
+                <input type="number" name="pagesRead" id="pagesRead" value="0" required>
                 <div>
                     <input type="checkbox" name="bookRead" id="bookRead">
                     <label for="bookRead">Already read?</label>
                 </div>
-                <button type="submit" id="add-button" onclick="addBookToLibrary(bookTitle, bookAuthor, bookPages, pagesRead, bookRead)">Add</button>
+                <button type="submit" id="add-button">Add</button>
             </form>
         </div>
         <div class="modal-background">
