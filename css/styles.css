@@ -70,7 +70,7 @@ button.new-book {
     right: 40px;
     box-shadow: 3px 3px 5px grey;
     z-index: 10;
-    transition: 50ms;
+    transition: 0.2s;
 }
 
 .modal-background {
@@ -84,7 +84,9 @@ button.new-book {
     z-index: 1;
 }
 
-#book-form {
+.add-form {
+    z-index: 10;
+
     box-sizing: border-box;
     display: grid;
     grid-template-columns: 250px;
@@ -97,6 +99,12 @@ button.new-book {
     background-color: steelblue;
     color: antiquewhite;
     box-shadow: 5px 5px 7px grey;
+    transition: 0.2s ease-in-out;
+    transform: scale(0);
+}
+
+.form-active {
+    transform: scale(1);
 }
 
 .form-title {

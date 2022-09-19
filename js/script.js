@@ -3,6 +3,7 @@
 const myLibrary = [];
 const libraryMain = document.querySelector('div.shelf');
 const modalWindow = document.querySelector('.modal-background');
+const modalForm = document.querySelector('.add-form');
 const addButton = document.querySelector('.new-book');
 
 addButton.addEventListener('click', displayModal);
@@ -62,11 +63,14 @@ function renderShelf(library) {
 
 function displayModal() {
     addButton.style.transform = 'rotate(45deg)';
+    modalForm.classList.add('form-active');
     modalWindow.style.display = 'block';
+
 }
 
 window.onclick = function(event) {
     if (event.target == modalWindow) {
+        modalForm.classList.remove('form-active');
         addButton.style.transform = '';
         modalWindow.style.display = "none";
     }
