@@ -5,11 +5,10 @@ const libraryMain = document.querySelector('div.shelf');
 const modalWindow = document.querySelector('.modal-background');
 const modalForm = document.querySelector('.add-form');
 const addButton = document.querySelector('.new-book');
-const submitBook = document.querySelector('#add-button');
 const bookForm = document.querySelector('.book-form');
 
 addButton.addEventListener('click', displayModal);
-submitBook.addEventListener('click', createBookFromForm)
+bookForm.addEventListener('submit', createBookFromForm)
 
 addBookToLibrary('The Lord of the Rings', 'J.R.R. Tolkien',
                  900, 0, false);
@@ -93,5 +92,4 @@ function createBookFromForm(e) {
     addButton.style.transform = '';
     modalWindow.style.display = "none";
     bookForm.reset();
-
 }

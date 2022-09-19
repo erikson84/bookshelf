@@ -58,6 +58,10 @@ main {
     text-align: center;
 }
 
+.book-title {
+    font-style: italic;
+}
+
 button.new-book {
     border: 0;
     background-color: steelblue;
