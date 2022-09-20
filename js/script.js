@@ -8,7 +8,7 @@ const addButton = document.querySelector('.new-book');
 const bookForm = document.querySelector('.book-form');
 
 addButton.addEventListener('click', displayModal);
-bookForm.addEventListener('submit', createBookFromForm)
+bookForm.addEventListener('submit', createBookFromForm);
 
 addBookToLibrary('The Lord of the Rings', 'J.R.R. Tolkien',
                  900, false);
@@ -64,11 +64,14 @@ function renderBookCard(book, index) {
     } else {
         readButton.textContent = 'Not read';
     }
+    readButton.addEventListener('click', toggleRead);
     cardControls.appendChild(readButton);
+    
 
     const deleteButton = document.createElement('button');
     deleteButton.classList.add('delete-button');
     deleteButton.textContent = 'Remove';
+    deleteButton.addEventListener('click', removeBook);
     cardControls.appendChild(deleteButton);
 
     card.appendChild(cardControls);
@@ -103,7 +106,9 @@ function createBookFromForm(e) {
     const title = document.querySelector("#bookTitle").value;
     const author = document.querySelector("#bookAuthor").value;
     const pages = document.querySelector("#bookPages").value;
-    const bookRead = document.querySelector("#bookRead").value;
+    const bookRead = document.querySelector("#bookRead").checked;
+
+    console.log(bookRead);
 
     addBookToLibrary(title, author, pages, bookRead);
     renderShelf(myLibrary);
@@ -112,4 +117,29 @@ function createBookFromForm(e) {
     addButton.style.transform = '';
     modalWindow.style.display = "none";
     bookForm.reset();
+}
+
+function toggleRead(e) {
+    const bookIdx = +e.composedPath()[2].dataset.index;
+    const readButton = e.target;
+    if (myLibrary[bookIdx].read) {
+        myLibrary[bookIdx].read = false;
+        readButton.classList.toggle('finished');
+        readButton.textContent = 'Not read';
+    } else {
+        myLibrary[bookIdx].read = true;
+        readButton.classList.toggle('finished');
+        readButton.textContent = 'Finished';
+    }
+}
+
+function removeBook(e) {
+    const deletedCard = e.composedPath()[2];
+    const bookIdx = +deletedCard.dataset.index;
+    myLibrary.splice(bookIdx, 1);
+    console.log(deletedCard.classList);
+    deletedCard.classList.toggle('removing');
+
+    renderShelf(myLibrary);
+
 }
