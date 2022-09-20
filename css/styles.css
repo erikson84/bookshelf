@@ -35,31 +35,65 @@ main {
 
 .shelf {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 30px;
     padding: 30px;
     overflow: auto;
 }
 
 .card {
     background-color: white;
-    height: 150px;
+    height: auto;
     border-radius: 10px;
     box-shadow: 3px 3px 5px grey;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 2fr 1fr 1fr 1fr;
     align-items: center;
+    border-left: 10px steelblue solid;
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.05);
 }
 
 .book-title,
-.book-author {
+.book-author,
+.book-pages {
     flex: 1;
     text-align: center;
+    margin: 0;
+    padding: 15px 5px;
 }
 
 .book-title {
+    flex: 2;
     font-style: italic;
+}
+
+.card-controls {
+    display: flex;
+    gap: 10px;
+    padding: 5px 10px 5px 10px;
+}
+
+.read-button,
+.delete-button {
+    flex: 1;
+    border: 0;
+    border-radius: 5px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.read-button {
+    background-color: lightcoral;
+    color: darkred;
+}
+
+.finished {
+    background-color: lightgreen;
+    color: darkgreen;
 }
 
 button.new-book {

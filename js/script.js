@@ -11,31 +11,25 @@ addButton.addEventListener('click', displayModal);
 bookForm.addEventListener('submit', createBookFromForm)
 
 addBookToLibrary('The Lord of the Rings', 'J.R.R. Tolkien',
-                 900, 0, false);
+                 900, false);
 
 addBookToLibrary('The Hobbit', 'J.R.R. Tolkien',
-                 400, 0, false);
+                 400, false);
 
 addBookToLibrary('The Silmarillion', 'J.R.R. Tolkien',
-                 600, 0, false);
+                 600, true);
 
 renderShelf(myLibrary);
 
-function Book(title, author, pages, pagesRead=0, read=false) {
+function Book(title, author, pages, read=false) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
-
-    if (read) {
-        this.pagesRead = pages;
-    } else {
-        this.pagesRead = pagesRead;
-    }
 }
 
-function addBookToLibrary(title, author, pages, pagesRead, read) {
-    const book = new Book(title, author, pages, pagesRead, read);
+function addBookToLibrary(title, author, pages, read) {
+    const book = new Book(title, author, pages, read);
     myLibrary.push(book);
 }
 
@@ -54,6 +48,31 @@ function renderBookCard(book, index) {
     bookAuthor.textContent = book.author;
     card.appendChild(bookAuthor);
 
+    const bookPages = document.createElement('h5');
+    bookPages.classList.add('book-pages');
+    bookPages.textContent = book.pages + 'pp.';
+    card.appendChild(bookPages);
+
+    const cardControls = document.createElement('div');
+    cardControls.classList.add('card-controls');
+
+    const readButton = document.createElement('button');
+    readButton.classList.add('read-button');
+    if (book.read) {
+        readButton.textContent = 'Finished';
+        readButton.classList.add('finished');
+    } else {
+        readButton.textContent = 'Not read';
+    }
+    cardControls.appendChild(readButton);
+
+    const deleteButton = document.createElement('button');
+    deleteButton.classList.add('delete-button');
+    deleteButton.textContent = 'Remove';
+    cardControls.appendChild(deleteButton);
+
+    card.appendChild(cardControls);
+    
     libraryMain.appendChild(card);
 }
 
@@ -84,10 +103,11 @@ function createBookFromForm(e) {
     const title = document.querySelector("#bookTitle").value;
     const author = document.querySelector("#bookAuthor").value;
     const pages = document.querySelector("#bookPages").value;
-    const pagesRead = document.querySelector("#pagesRead").value;
     const bookRead = document.querySelector("#bookRead").value;
-    addBookToLibrary(title, author, pages, pagesRead, bookRead);
+
+    addBookToLibrary(title, author, pages, bookRead);
     renderShelf(myLibrary);
+    
     modalForm.classList.remove('form-active');
     addButton.style.transform = '';
     modalWindow.style.display = "none";
