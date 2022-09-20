@@ -80,6 +80,12 @@ function renderBookCard(book, index) {
 }
 
 function renderShelf(library) {
+    if (library.length === 0) {
+        const emptyString = document.createElement('h2');
+        emptyString.classList.add('empty');
+        emptyString.textContent = 'Your library is empty';
+        libraryMain.appendChild(emptyString);
+    }
     libraryMain.textContent = '';
     library.forEach((book, idx) => {
         renderBookCard(book, idx)
@@ -108,8 +114,6 @@ function createBookFromForm(e) {
     const pages = document.querySelector("#bookPages").value;
     const bookRead = document.querySelector("#bookRead").checked;
 
-    console.log(bookRead);
-
     addBookToLibrary(title, author, pages, bookRead);
     renderShelf(myLibrary);
     
@@ -137,9 +141,8 @@ function removeBook(e) {
     const deletedCard = e.composedPath()[2];
     const bookIdx = +deletedCard.dataset.index;
     myLibrary.splice(bookIdx, 1);
-    console.log(deletedCard.classList);
     deletedCard.classList.toggle('removing');
 
-    renderShelf(myLibrary);
-
+    Promise.all(deletedCard.getAnimations().map(animation => animation.finished)).
+        then(() => renderShelf(myLibrary));
 }
