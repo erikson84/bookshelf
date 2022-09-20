@@ -43,11 +43,18 @@ main {
 }
 
 .empty {
-    color: whitesmoke;
-    text-shadow: grey;
+    font-weight: bold;
+    font-size: 50px;
+    background-color: #565656;
+    color: transparent;
+    text-shadow: 2px 2px 3px rgba(255,255,255,0.5);
+    -webkit-background-clip: text;
+       -moz-background-clip: text;
+            background-clip: text;
     position: fixed;
-    top: 50%;
-    right: 50%;
+    top: 25%;
+    width: 100%;
+    text-align: center;
 }
 
 .card {

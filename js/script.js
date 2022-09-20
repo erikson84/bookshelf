@@ -1,6 +1,7 @@
 "use strict"
 
 const myLibrary = [];
+const mainBody = document.querySelector('main');
 const libraryMain = document.querySelector('div.shelf');
 const modalWindow = document.querySelector('.modal-background');
 const modalForm = document.querySelector('.add-form');
@@ -10,14 +11,14 @@ const bookForm = document.querySelector('.book-form');
 addButton.addEventListener('click', displayModal);
 bookForm.addEventListener('submit', createBookFromForm);
 
-addBookToLibrary('The Lord of the Rings', 'J.R.R. Tolkien',
-                 900, false);
+// addBookToLibrary('The Lord of the Rings', 'J.R.R. Tolkien',
+//                  900, false);
 
-addBookToLibrary('The Hobbit', 'J.R.R. Tolkien',
-                 400, false);
+// addBookToLibrary('The Hobbit', 'J.R.R. Tolkien',
+//                  400, false);
 
-addBookToLibrary('The Silmarillion', 'J.R.R. Tolkien',
-                 600, true);
+// addBookToLibrary('The Silmarillion', 'J.R.R. Tolkien',
+//                  600, true);
 
 renderShelf(myLibrary);
 
@@ -84,12 +85,17 @@ function renderShelf(library) {
         const emptyString = document.createElement('h2');
         emptyString.classList.add('empty');
         emptyString.textContent = 'Your library is empty';
-        libraryMain.appendChild(emptyString);
-    }
-    libraryMain.textContent = '';
-    library.forEach((book, idx) => {
+        mainBody.appendChild(emptyString);
+    } else {
+        const emptyString = document.querySelector('h2.empty');
+        console.log(emptyString);
+        if (emptyString) mainBody.removeChild(emptyString);
+        libraryMain.textContent = '';
+        library.forEach((book, idx) => {
         renderBookCard(book, idx)
     });
+    }
+    
 }
 
 function displayModal() {
