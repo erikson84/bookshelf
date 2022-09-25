@@ -1,6 +1,5 @@
 "use strict"
 
-const myLibrary = [];
 const mainBody = document.querySelector('main');
 const libraryMain = document.querySelector('div.shelf');
 const modalWindow = document.querySelector('.modal-background');
@@ -20,8 +19,6 @@ bookForm.addEventListener('submit', createBookFromForm);
 // addBookToLibrary('The Silmarillion', 'J.R.R. Tolkien',
 //                  600, true);
 
-renderShelf(myLibrary);
-
 class Book {
     constructor(title, author, pages, read = false) {
         this.title = title;
@@ -29,12 +26,49 @@ class Book {
         this.pages = pages;
         this.read = read;
     }
+
+    toggleRead() {
+        if (this.read) {
+            this.read = false;
+        } else {
+            this.read = true;
+        }
+    }
 }
 
-function addBookToLibrary(title, author, pages, read) {
-    const book = new Book(title, author, pages, read);
-    myLibrary.push(book);
+class Library {
+    constructor() {
+        this.books = [];
+        this.renderShelf();
+    }
+
+    addBookToLibrary(book) {
+        this.books.push(book);
+        this.renderShelf();
+    }
+
+    removeBook(bookIdx) {
+        this.books.splice(bookIdx, 1);
+    }
+
+    renderShelf() {
+        if (this.books.length === 0) {
+            const emptyString = document.createElement('h2');
+            emptyString.classList.add('empty');
+            emptyString.textContent = 'Your library is empty';
+            mainBody.appendChild(emptyString);
+        } else {
+            const emptyString = document.querySelector('h2.empty');
+            if (emptyString) mainBody.removeChild(emptyString);
+            libraryMain.textContent = '';
+            this.books.forEach((book, idx) => {
+                renderBookCard(book, idx)
+            });
+        }   
+    }
 }
+
+const myLibrary = new Library();
 
 function renderBookCard(book, index) {
     const card = document.createElement('div');
@@ -82,23 +116,7 @@ function renderBookCard(book, index) {
     libraryMain.appendChild(card);
 }
 
-function renderShelf(library) {
-    if (library.length === 0) {
-        const emptyString = document.createElement('h2');
-        emptyString.classList.add('empty');
-        emptyString.textContent = 'Your library is empty';
-        mainBody.appendChild(emptyString);
-    } else {
-        const emptyString = document.querySelector('h2.empty');
-        console.log(emptyString);
-        if (emptyString) mainBody.removeChild(emptyString);
-        libraryMain.textContent = '';
-        library.forEach((book, idx) => {
-        renderBookCard(book, idx)
-    });
-    }
-    
-}
+
 
 function displayModal() {
     addButton.style.transform = 'rotate(45deg)';
@@ -122,8 +140,8 @@ function createBookFromForm(e) {
     const pages = document.querySelector("#bookPages").value;
     const bookRead = document.querySelector("#bookRead").checked;
 
-    addBookToLibrary(title, author, pages, bookRead);
-    renderShelf(myLibrary);
+    const book = new Book(title, author, pages, bookRead);
+    myLibrary.addBookToLibrary(book);
     
     modalForm.classList.remove('form-active');
     addButton.style.transform = '';
@@ -134,23 +152,22 @@ function createBookFromForm(e) {
 function toggleRead(e) {
     const bookIdx = +e.composedPath()[2].dataset.index;
     const readButton = e.target;
-    if (myLibrary[bookIdx].read) {
-        myLibrary[bookIdx].read = false;
-        readButton.classList.toggle('finished');
-        readButton.textContent = 'Not read';
-    } else {
-        myLibrary[bookIdx].read = true;
+    myLibrary.books[bookIdx].toggleRead();
+    if (myLibrary.books[bookIdx].read) {
         readButton.classList.toggle('finished');
         readButton.textContent = 'Finished';
+    } else {
+        readButton.classList.toggle('finished');
+        readButton.textContent = 'Not read';
     }
 }
 
 function removeBook(e) {
     const deletedCard = e.composedPath()[2];
     const bookIdx = +deletedCard.dataset.index;
-    myLibrary.splice(bookIdx, 1);
+    myLibrary.removeBook(bookIdx);
     deletedCard.classList.toggle('removing');
 
     Promise.all(deletedCard.getAnimations().map(animation => animation.finished)).
-        then(() => renderShelf(myLibrary));
+        then(() => myLibrary.renderShelf());
 }
