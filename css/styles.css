@@ -150,7 +150,8 @@ button.new-book {
     display: grid;
     grid-template-columns: 250px;
     width: 250px;
-    height: 400px;
+    height: 0px;
+    overflow: hidden;
     position: fixed;
     bottom: 130px;
     right: 40px;
@@ -159,11 +160,10 @@ button.new-book {
     color: whitesmoke;
     box-shadow: 5px 5px 7px grey;
     transition: 0.2s ease-in-out;
-    transform: scale(0);
 }
 
 .form-active {
-    transform: scale(1);
+    height: 400px;
 }
 
 .form-title {
